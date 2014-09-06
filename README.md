@@ -1,4 +1,4 @@
-credittocreation-tumblr-theme
+tres-dimanche-tumblr-theme
 =============================
 
 The original Tumblr theme for credittocreation.jonathanbell.ca
