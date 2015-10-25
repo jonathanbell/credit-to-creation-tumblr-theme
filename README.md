@@ -1,8 +1,6 @@
 tres-dimanche-tumblr-theme
 =============================
 
-The original Tumblr theme for credittocreation.jonathanbell.ca
-
 <h3>How to Install Your New Theme on your Tumblr<h3>
 <p>Installing your theme is easy to do, just follow the instructions below.  If you get stuck at any point try using our helpful support section.</p>
 <ol>
