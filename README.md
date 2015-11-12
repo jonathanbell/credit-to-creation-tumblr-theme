@@ -1,23 +1,37 @@
-tres-dimanche-tumblr-theme
-=============================
+Credit to Creation Tumblr Theme
+===============================
 
-<h3>How to Install Your New Theme on your Tumblr<h3>
-<p>Installing your theme is easy to do, just follow the instructions below.  If you get stuck at any point try using our helpful support section.</p>
-<ol>
-	<li>Select all HTML, copy to clipboard.</li>
-	<li>Login to your Tumblr dashboard then click the settings icon in the top menu. (looks like a cog)</li>
-	<li>Select theme your want to apply the theme to from the list on the left. (if you have one blog you can ignore this step)</li>
-	<li>Click the "Customize" button in the Theme section</li>
-	<li>Now press 'Edit HTML'.</li>
-	<li>You might be shown some code or it may appear grey with some numbers on the left hand side.  This is a Tumblr issue but we'll get around this.</li>
-	<li>Click anywhere in the grey area to the right of the numbers.</li>
-	<li>Press and hold the 'CTRL' button and whilst held down press the letter 'A'  For Mac users the 'CTRl' key is called the 'Command' key.</li>
-	<li>Now press the delete key, all old code will be removed.</li>
-	<li>Click your cursor again anywhere in the grey area to the right of the numbers.</li>
-	<li>Press and hold the 'CTRL/Command' button and whilst held down press the letter 'V'. </li>
-	<li>Your new code has been pasted, now to update.</li>
-	<li>Press the 'Appearance' button followed by the 'Save' button.</li>
-	<li>To remove old settings and add the new ones press the 'Close' button.</li>
-	<li>You should be back on the dashboard page, select your blog followed by 'Customize theme'.</li>
-	<li>Your themes new controls should now be available, have fun making your theme your own!</li>
-</ol>
+With photographers in mind.
+
+Elegant and super-duper modern, Credit to Creation aims to be simple without being boring. The typography is relaxed and readable while photos are displayed in a grid format up to just over 500 pixels wide on index pages. Clicking a photo, shows the viewer a larger, 900 pixel wide view along with the image tags and notes. Nothing gets in the way of your creative expression.
+
+## Features
+
++ fully responsive (the theme will look good and work well on a device of any size)
++ semantic HTML5 markup (supports _modern_ web browers)
++ column layout (3 columns for wide screens, 2 & 1 columns for smaller screens)
++ supports custom header image
++ custom colors and typography
++ utilizes Tumblr variables
++ custom description
++ easy Google Analytics & Disqus commenting (optional)
+
+### Google Analytics
+
+Support for Google Analytics tracking is built in and ready to go. Just create a new property for your blog in your Google Analytics account, and then paste the Property ID into the theme options.
+
+### Disqus Commenting
+
+Similar to Google Analytics, simply paste your [Disqus Shortname](https://help.disqus.com/customer/portal/articles/466208) into the theme options to enable Disqus.
+
+### Customization
+
+While Credit to Creation is designed to be elegant and usable out of the box, there is plenty for you to customize. Options include typographic details (such as fonts), enabling or disabling like & reblog buttons shown above photos, layout options and more.
+
+Credit to Creation allows you to load an extra 2 pages worth of content onto a single page. Just enable the "Show Extra Content From Subsequent Pages" option from the "Theme Options" menu on the customize page. Keep in mind loading extra content on all of your index pages, will make those pages load a little slower.
+
+## Support
+
+I'm here to help if anything goes wrong: <jonathanbell.ca@gmail.com>
+
+Enjoy!
