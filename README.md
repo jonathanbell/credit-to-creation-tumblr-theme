@@ -8,7 +8,7 @@ Elegant and super-duper modern, Credit to Creation aims to be simple without bei
 ## Features
 
 + fully responsive (the theme will look good and work well on a device of any size)
-+ semantic HTML5 markup (supports _modern_ web browers)
++ semantic HTML5 markup (supports _modern_ web browsers)
 + column layout (3 columns for wide screens, 2 & 1 columns for smaller screens)
 + supports custom header image
 + custom colors and typography
