@@ -29,6 +29,7 @@
   <!-- Tumblr Options -->
   <meta name="text:Google Analytics ID" content=""/>
   <meta name="text:Disqus Shortname" content="" />
+  <meta name="text:Footer Note" content="" />
   <meta name="if:Show Archive Link" content="1"/>
   <meta name="if:Show Extra Content From Subsequent Pages" content="1"/>
   <meta name="if:Show Horizontal Line Under Main Header" content="1"/>
@@ -227,12 +228,14 @@
     .notes .avatar { width: 19px; margin: 1px 0.333rem 1px 0; }
     .more_notes_link_container { padding-top: 1rem; }
 
+    #disqus_thread { margin: auto; max-width: 99rem; margin-top: 1.5rem; }
+    .dsq-brlink { display: none !important; }
+
     .page-footer { text-transform: lowercase; color: {color:Links}; margin-top: 3rem; margin-bottom: 1rem; font-size: 200%; font-size: 2rem; text-align: center; font-style: italic; }
     .page-footer .prevnext-links:hover { text-decoration: none; }
     #footer-links-divider { position: relative; top: 0.111rem; }
 
-    #disqus_thread { margin: auto; max-width: 99rem; margin-top: 1.5rem; }
-    .dsq-brlink { display: none !important; }
+    .page-footer #footer-note { font-size: initial; text-align: right; margin-top: 6rem; margin-bottom: 0; text-transform: initial; }
 
 
     /* BREAKPOINTS */
@@ -445,15 +448,16 @@
   </section>
 
   <footer class="page-footer">
-  {block:Pagination}
-    {block:PreviousPage}
-      <a class="prev prevnext-links" href="{PreviousPage}">&#171; {lang:Newer}</a>
-    {/block:PreviousPage}
-    <span id="footer-links-divider">//</span>
-    {block:NextPage}
-      <a class="next prevnext-links" href="{NextPage}">{lang:Older} &#187;</a>
-    {/block:NextPage}
-  {/block:Pagination}
+    {block:Pagination}
+      {block:PreviousPage}
+        <a class="prev prevnext-links" href="{PreviousPage}">&#171; {lang:Newer}</a>
+      {/block:PreviousPage}
+      <span id="footer-links-divider">//</span>
+      {block:NextPage}
+        <a class="next prevnext-links" href="{NextPage}">{lang:Older} &#187;</a>
+      {/block:NextPage}
+    {/block:Pagination}
+    {block:IfFooterNote}<p id="footer-note">{text:Footer Note}</p>{/block:IfFooterNote}
   </footer>
 
   <!-- jQuery -->
