@@ -11,6 +11,7 @@ Elegant and super-duper modern, Credit to Creation aims to be simple without bei
 + semantic HTML5 markup (supports _modern_ web browsers)
 + column layout (3 columns for wide screens, 2 & 1 columns for smaller screens)
 + supports custom header image
++ infinite scrolling by default (with option to disable)
 + custom colors and typography
 + utilizes Tumblr variables
 + custom description
@@ -28,7 +29,7 @@ Similar to Google Analytics, simply paste your [Disqus Shortname](https://help.d
 
 While Credit to Creation is designed to be elegant and usable out of the box, there is plenty for you to customize. Options include typographic details (such as fonts), enabling or disabling like & reblog buttons shown above photos, layout options and more.
 
-Credit to Creation allows you to load an extra 2 pages worth of content onto a single page. Just enable the "Show Extra Content From Subsequent Pages" option from the "Theme Options" menu on the customize page. Keep in mind loading extra content on all of your index pages, will make those pages load a little slower.
+Advanced option: Add your own custom styling and CSS via the Advanced Options menu by clicking the Edit Theme button on your homepage.
 
 ## Support
 

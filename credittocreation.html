@@ -5,12 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <!--
+
     Credit to Creation
     ==================
 
     A Tumblr theme.
 
-    THEME SUPPORT: jonathanbell.ca@gmail.com
+    THEME SUPPORT: jonathanbell.ca@gmail.com (Jonathan Bell)
+
   -->
 
   <title>{Title}{block:TagPage} | Posts Tagged &lsquo;{Tag}&rsquo;{/block:TagPage}{block:PostSummary} | {PostSummary}{/block:PostSummary}</title>
@@ -18,22 +20,23 @@
   <link rel="apple-touch-icon" href="{PortraitURL-128}">
   <link rel="alternate" type="application/rss+xml" href="{RSS}">
   {block:Description}
-      <meta name="description" content="{MetaDescription}" />
+    <meta name="description" content="{MetaDescription}" />
   {/block:Description}
 
   <script>
     // http://www.learningjquery.com/2008/10/1-way-to-avoid-the-flash-of-unstyled-content
-    document.documentElement.className = 'js'; // remove class 'no-js', add class 'js'
+    document.documentElement.className = 'js'; // add class 'js' if we have JS available
   </script>
 
   <!-- Tumblr Options -->
   <meta name="text:Google Analytics ID" content=""/>
   <meta name="text:Disqus Shortname" content="" />
-  <meta name="text:Footer Note" content="" />
   <meta name="if:Show Archive Link" content="1"/>
-  <meta name="if:Show Extra Content From Subsequent Pages" content="1"/>
   <meta name="if:Promote Theme" content="1"/>
-  <meta name="if:Show Horizontal Line Under Main Header" content="1"/>
+  <meta name="if:Infinite Scrolling" content="1"/>
+  <meta name="if:Show Loading Indicator" content="1"/>
+  <meta name="if:Show Horizontal Line Under Main Header" content="0"/>
+  <meta name="if:Show Header Image" content="0"/>
   <meta name="if:Display All Photo Posts In Black And White" content="0"/>
   <meta name="if:Show Reblog And Like Buttons Above Thumbnails When Hovering" content="1"/>
   <meta name="image:Header" content="{HeaderImage}"/>
@@ -47,7 +50,7 @@
 
   <style>
 
-    /* content font */
+    /* content font (base64 encoded) */
     @font-face {
       font-family: 'content-serif';
       font-style: normal;
@@ -108,10 +111,10 @@
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
     }
-    hr { display:block; height:1px; border:0; border-top:1px solid {color:Heading text}; margin:1em 0; padding:0 }
-    audio, canvas, img, svg, video{ vertical-align:middle }
-    textarea{ resize:vertical }
-    video { width: 100% }
+    hr { display:block; height:1px; border:0; border-top:1px solid {color:Heading text}; margin: 1em 0; padding:0 }
+    audio, canvas, img, svg, video { vertical-align: middle; }
+    textarea{ resize: vertical; }
+    video { width: 100%; }
     audio, video, img, iframe { max-width: 100%; }
     a, a:hover, a:active, a:focus { text-decoration: none; color: {color:Links}; }
     a:hover { color: {color:Hover text}; text-decoration: underline; }
@@ -123,6 +126,22 @@
     h4 { font-size: 1.12rem; }
     h5 { font-size: 1rem; }
 
+    #spinner-wrapper {
+      bottom: 0;
+      left: 0;
+      height: 30px;
+      padding-top: 2px;
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+      background-color: rgba(255, 255, 255, 0.333);
+      text-align: center;
+      position: fixed;
+      width: 100%;
+      z-index: 999;
+    }
+    #spinner-wrapper img { height: 26px; width: auto; }
+    #spinner-wrapper.active { opacity: 1; }
+
 
     /* HEADERS AND HEADINGS */
 
@@ -131,41 +150,45 @@
     .post h1 a:hover, .post h2 a:hover, .post h3 a:hover, .post h4 a:hover, .post h5 a:hover, .post h6 a:hover { text-decoration: none; }
 
     .main-header { display: flex; flex-direction: column-reverse; }
-    .main-heading-wrapper { flex: 1; }
+    .main-heading-wrapper { flex: 1; padding: 0 0.5rem; }
     .main-heading { margin: 0; }
-    .main-heading a { text-decoration: none; color: {color:Main heading}; } .main-heading a:hover { color: {color:Main heading}; }
+    .main-heading a { text-decoration: none; color: {color:Main heading}; } 
+    .main-heading a:hover { color: {color:Main heading}; }
     .description { font-weight: normal; margin: 0; }
 
     {block:IfHeaderImage}{block:ShowHeaderImage}
       .not-front .main-header { background: transparent; }
-      .front .main-header { background: url('{image:Header}') no-repeat center center; height: auto; width: 100%; padding: 1rem;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover; }
+      .front .main-header { 
+        background: url('{image:Header}') no-repeat center center; height: auto; width: 100%; padding: 1rem;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover; 
+      }
     {/block:ShowHeaderImage}{/block:IfHeaderImage}
 
-    nav[role=nav] { flex: 1; }
+    nav[role=nav] { flex: 1; padding: 0 0.5rem; }
     ul.pages { margin: 0; padding: 0; }
     ul.pages li, .tag { display: inline; color: {color:Heading text}; padding-left: 3px; font-style: italic; text-transform: lowercase; }
     ul.pages li:first-of-type, .tag:first-of-type { padding-left: 0; }
 
-    .front #main { margin-top: 0.5rem;
+    .front #main { 
+      margin: 0.5rem auto;
       {block:IfShowHorizontalLineUnderMainHeader}padding-top: 1rem; border-top: 1px solid {color:Heading text};{/block:IfShowHorizontalLineUnderMainHeader}
-      -moz-columns: 1; -webkit-columns: 1; -o-columns: 1; -ms-columns: 1; columns: 1;
-      -moz-column-gap: 1rem; -webkit-column-gap: 1rem; -o-column-gap: 1rem; -ms-column-gap: 1rem; column-gap: 1rem;
     }
+    .js .front #main { opacity: 0; }
 
 
     /* POSTS */
 
-    .post { margin: auto; max-width: 100%; padding-bottom: 0.5rem; font-family: 'content-serif', serif;
-      -webkit-column-break-inside: avoid;
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
+    .post { margin: auto; max-width: 100%; padding-bottom: 0.5rem; font-family: 'content-serif', serif; }
+    /* inital (base) width of cols */
+    .front .post, .front .grid-sizer { width: 70%; }
+    .js .front .post, .js .front .grid-sizer { width: 100%; }
+    .front .post { padding: 0.5rem; } 
     .not-front .post { margin-top: 1rem; }
     .post h1, .post h2, .post h3, .post h4, .post h5, .post h6 { margin-top: 0; }
+    .post img { max-width: 100%; }
 
     .post.text { letter-spacing: 0.003rem; line-height: 1.5; }
     .not-front .post.text, .not-front .post.text ~ #permalink-page-footer, .not-front .post.quote,
@@ -175,23 +198,19 @@
 
     .not-front .post.photo, .post.photo + #permalink-page-footer, .post.photo ~ .notes, .post.photo ~ #disqus_thread
     { max-width: 900px; }
-    .post.photo img { width: 100%; }
+    .post.photo img { width: 100%; display: block; height: auto; }
     {block:IfShowReblogAndLikeButtonsAboveThumbnailsWhenHovering}
       .front .post.photo .reblog-and-like-buttons { display: none; opacity: 0; position: relative; list-style: none; padding: 0; left: 11px; }
       .front .post.photo:hover > .reblog-and-like-buttons { opacity: 1; }
     {/block:IfShowReblogAndLikeButtonsAboveThumbnailsWhenHovering}
     {block:IfDisplayAllPhotoPostsInBlackAndWhite}
-      /*
-       * There are currently issues with css3 colomn layout and filters in chrome. When these get resolved, we can add this back in to the theme.
-       * https://github.com/patrickkunka/mixitup/issues/218#issuecomment-143976518
-       */
+      /* This is known to be buggy on Chrome still when using funky positioning and/or grids. Hopefully, support will increase as time passes. */
       .post.photo img { filter: grayscale(1); }
     {/block:IfDisplayAllPhotoPostsInBlackAndWhite}
 
     .post.photoset .html_photoset, .post.photoset .html_photoset iframe { width: 100% !important; overflow-x: hidden; }
 
-    .post.quote blockquote { line-height: 1.25; font-size: 115%; letter-spacing: 0.0rem; }
-    .not-front .post.quote blockquote { margin: 0; line-height: 1.7; }
+    .not-front .post.quote blockquote { margin: 0; line-height: 1.75; font-size: 115%; }
     .post.quote cite.source { display: block; padding-left: 1rem; margin-top: 1rem; font-style: italic;  margin-bottom: 1rem; }
     .post.quote cite.source:before { content:"\2014"; padding-right: 1rem; }
 
@@ -209,19 +228,27 @@
 
     /* FOOTERS */
 
+    /* hide things when the user has JS enabled (for infinite scrolling) */
+    /* .js .front .page-footer { display: none; } */
+
+    .page-footer { text-transform: lowercase; color: {color:Links}; margin-top: 3rem; margin-bottom: 1rem; font-size: 200%; font-size: 2rem; text-align: center; font-style: italic; }
+    .page-footer .prevnext-links:hover { text-decoration: none; }
+    #footer-links-divider { position: relative; top: 0.111rem; }
+
+    /* permalink pages */
     #permalink-page-footer { margin: auto; display: flex; }
     #permalink-page-footer ul { padding: 0; margin: 0; flex: 1; }
     #permalink-page-footer ul li { list-style: none; padding-left: 7px; }
     #permalink-page-footer ul li:first-of-type { padding-left: 0; }
 
-    .tag:before { content: "#"; padding-right: 1px; }
-    .tag a { color: {color:Links}; text-decoration: none; }
-    .tag a:hover { text-decoration: underline; color: {color:Hover text}; }
-
     #permalink-page-footer .reblog-and-like-buttons .button { display: inline-block; float: right; margin-top: -3px; }
     #permalink-page-footer .like.button { margin-left: 4px; }
     #permalink-page-footer .reblog.button { margin-top: -5px; }
     .submitted-by { display: inline; margin: 0; margin-right: 5px; }
+
+    .tag:before { content: "#"; padding-right: 1px; }
+    .tag a { color: {color:Links}; text-decoration: none; }
+    .tag a:hover { text-decoration: underline; color: {color:Hover text}; }
 
     .notecount.button { color: {color:Links}; font-style: italic; }
     .notes { padding: 0; margin: auto; margin-top: 2rem; list-style: none; }
@@ -232,41 +259,41 @@
     #disqus_thread { margin: auto; max-width: 99rem; margin-top: 1.5rem; }
     .dsq-brlink { display: none !important; }
 
-    .page-footer { text-transform: lowercase; color: {color:Links}; margin-top: 3rem; margin-bottom: 1rem; font-size: 200%; font-size: 2rem; text-align: center; font-style: italic; }
-    .page-footer .prevnext-links:hover { text-decoration: none; }
-    #footer-links-divider { position: relative; top: 0.111rem; }
-
-    .page-footer #footer-note { font-size: initial; text-align: right; margin-top: 5rem; margin-bottom: 0; text-transform: initial; }
-
 
     /* BREAKPOINTS */
 
     @media screen and (min-width: 39rem) {
+
       body { padding-top: 1.125rem; padding-bottom: 2rem; }
+
       .main-header { flex-direction: row-reverse; text-align: right; }
       nav[role=nav] { text-align: left; }
-      .front #main {
-        -moz-columns: 2; -webkit-columns: 2; -o-columns: 2; -ms-columns: 2; columns: 2;
-      }
+
+      {block:IfHeaderImage}{block:ShowHeaderImage}
+        .front .main-header { min-height: 300px; }
+      {/block:ShowHeaderImage}{/block:IfHeaderImage}
+
       {block:IfShowReblogAndLikeButtonsAboveThumbnailsWhenHovering}
         .front .post.photo img { margin-top: -65px; }
         .front .post.photo .reblog-and-like-buttons { display: inline-block; }
       {/block:IfShowReblogAndLikeButtonsAboveThumbnailsWhenHovering}
-      {block:IfHeaderImage}{block:ShowHeaderImage}
-        .front .main-header { min-height: 300px; }
-      {/block:ShowHeaderImage}{/block:IfHeaderImage}
+
+      .js .front .post, .js .front .grid-sizer { width: 50%; } /* Masonry.js */
+
     } /* min-width 39rem */
 
-    @media screen and (min-width: 56.77rem) {
-      .front #main {
-        -moz-columns: 3; -webkit-columns: 3; -o-columns: 3; -ms-columns: 3; columns: 3;
-      }
-    } /* min width 56rem */
+    @media screen and (min-width: 64rem) {
 
-    /* Mobile/small screen resets... */
+      .js .front .post, .js .front .grid-sizer { width: 33.19%; } /* Masonry.js */ 
+
+    } /* min width 64rem */
+
     @media screen and (max-width: 39rem) {
 
-    } /* max-width 39rem */
+      /* Make room for the Tumblr added "Follow This Blog" thing at the top of the page on mobile. */
+      nav[role=nav] { margin-top: 1rem; }
+
+    } /* max width 39rem */
 
 
     /* USER ADDED CUSTOM CSS */
@@ -307,7 +334,18 @@
     </nav>
   </header>
 
+  {block:IfInfiniteScrolling}
+  {block:IfShowLoadingIndicator}
+  <!-- ajax display (toggles on and off with JS) -->
+  <div id="spinner-wrapper"><img src="http://static.tumblr.com/uoxxoej/eRToa0f46/spinner.gif" /></div>
+  {/block:IfShowLoadingIndicator}
+  {/block:IfInfiniteScrolling}
+
   <section id="main" role="main">
+
+    <!-- This is for Masonry.js http://masonry.desandro.com/layout.html#responsive-layouts -->
+    <div class="grid-sizer"></div>
+
     {block:Posts}
 
       <!-- Text -->
@@ -427,7 +465,7 @@
           <ul class="reblog-and-like-buttons">
             <li class="like button">{LikeButton size="17"}</li>
             <li class="reblog button">{ReblogButton size="17"}</li>
-            <!-- ok.. .notecount isn't actually a button, but it might be in the future! -->
+            <!-- ok.. .notecount isn't actually a .button, but it might be in the future! -->
             {block:NoteCount}<li class="notecount button">{NoteCountWithLabel}</li>{/block:NoteCount}
           </ul>
         </div>
@@ -443,14 +481,17 @@
               (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             })();
           </script>
-          <!-- This <a> comes with the "recommended" Disqus embed code. We just hide it via CSS. -->
+          <!-- This <a> tag comes with the "recommended" Disqus embed code. We just hide it via CSS. -->
           <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
         {/block:IfDisqusShortname}
       {/block:PermalinkPage}
+      <!-- /Permalink Page -->
 
     {/block:Posts}
-  </section>
 
+  </section><!-- /#main -->
+
+  {block:IfNotInfiniteScrolling}
   <footer class="page-footer">
     {block:Pagination}
       {block:PreviousPage}
@@ -461,13 +502,19 @@
         <a class="next prevnext-links" href="{NextPage}">{lang:Older} &#187;</a>
       {/block:NextPage}
     {/block:Pagination}
-    {block:IfFooterNote}<p id="footer-note">{text:Footer Note}</p>{/block:IfFooterNote}
   </footer>
+  {/block:IfNotInfiniteScrolling}
 
   <!-- jQuery -->
-  <script src="http://static.tumblr.com/l184zuh/wCUmxsggy/jquery-1.10.2.min.js"></script>
+  <script src="http://static.tumblr.com/uoxxoej/PQLoa0ecw/2.1.3.jquery.min.js"></script>
   <!-- Responsive videos via FitVids -->
   <script src="http://static.tumblr.com/uoxxoej/xTOm605fx/jquery.fitvids.js"></script>
+  <!-- Masonary -->
+  <script src="http://static.tumblr.com/uoxxoej/BfBo9vkfb/masonry.pkgd.min.js"></script>
+  <!-- imagesLoaded -->
+  <script src="http://static.tumblr.com/uoxxoej/cCGo9vkhi/imagesloaded.pkgd.min.js"></script>
+  <!-- smartScroll -->
+  <script src="http://static.tumblr.com/uoxxoej/0Mpoa0eul/jquery.smartscroll.js"></script>
 
   <!-- Google Analytics -->
   {block:IfGoogleAnalyticsID}
@@ -481,7 +528,7 @@
     </script>
   {/block:IfGoogleAnalyticsID}
 
-  {block:IfShowExtraContentFromSubsequentPages}<script>
+  <script>
 
     // https://gist.github.com/jlong/2428561
     /*
@@ -490,76 +537,118 @@
     * and set a var to hold the current page and pagination position.
     * NOTE: Tumblr's own CurrentPage and TotalPages could do this except
     * CurrentPage will still return '1' even if we are on a permalink or tags
-    * page. Besides, we only need this if the user has JS enabled and the blog
-    * owner has has chosen to "Show Extra Content From Subsequent Pages".
+    * page. 
     */
     var URLparser = document.createElement('a');
     var pageID; // the page position
     URLparser.href = document.URL;
     var URLparsed = URLparser.pathname.split('/');
-    if (URLparsed[1] && URLparsed[2] && !isNaN(URLparsed[2]) && URLparsed[1] == 'page') {
+    if (URLparsed[1] && URLparsed[2] && URLparsed[1] == 'page' && !isNaN(URLparsed[2])) {
       pageID = URLparsed[2];
     } else if (URLparsed[1] && URLparsed[1] != 'page') {
-      pageID = false; // we are on a 'non-index' page such as a permalink page
+      pageID = false; // we are on a 'non-index' page such as a permalink page or tags page
     } else {
       pageID = 1; // on the 'homepage'
     }
 
-    // console.log('pageID is: ' + pageID);
+    var mOptions = {
+      itemSelector: '.post',
+      columnWidth: '.grid-sizer',
+      percentPosition: true,
+      transitionDuration: 0
+    };
 
-    /**
-     * Appends the content from another page to section#main.
-     * @param  integer pagenumber The page number to get.
-     * @return boolean            Returns false if the requested page, does not have content.
-     */
-    function appendContentFromPage(pagenumber) {
-      // fire off an ajax request to the page in order to get new content
-      $.ajax({
-        url: '/page/' + pagenumber,
-        dataType: 'html', // defaults 'intelegent guess' http://api.jquery.com/jquery.ajax/
-        beforeSend: function() {
-          // console.log('getting more content from page: ' + pagenumber);
-        },
-        success: function(data) {
-          $.each($(data).find('.post'), function() {
-            $('#main').append($(this));
-            // console.log('appended .post to #main from page: ' + pagenumber);
-          }); // for each photo returned from ajax
-        },
-        error: function() {
-          console.log('Something went wrong with AJAX, bro.');
+    var endOfBlog = false;
+
+    var $grid; 
+    $(function() {
+
+      // initalize Masonry.js
+      $grid = $('.front #main').imagesLoaded(function() {
+        $grid.masonry(mOptions);
+        $('.front #main').animate({ 'opacity': 1 });
+      });
+
+      {block:IfInfiniteScrolling}
+      // event handler to call the content append
+      $(window).smartscroll(function() {
+        if($(window).scrollTop() + $(window).height() > $(document).height() - 170 && endOfBlog === false && pageID != false) {
+          // for (i=0; i < 2; i++) { // this seems to be too spicy. 
+            appendPageContent(pageID);
+            pageID++;
+          // }
         }
       });
-    } // appendContentFromPage()
+      {/block:IfInfiniteScrolling}
+      
+    }); // enclosure
 
-  </script>{/block:IfShowExtraContentFromSubsequentPages}
+    // extend jQuery object to layout the posts with Masonry.js once the images have loaded
+    $.fn.masonryImagesReveal = function($items) {
+      
+      var msnry = this.data('masonry');
+      var itemSelector = msnry.options.itemSelector;
+      // hide by default
+      $items.hide();
+      // append to container
+      this.append($items);
+      $items.imagesLoaded().progress(function(imgLoad, image) {
+        // get item
+        // image is imagesLoaded class, not <img>, <img> is image.img
+        var $item = $(image.img).parents(itemSelector);
+        // un-hide item
+        $item.show();
+        // masonry does its thing
+        msnry.appended($item);
+        // remove the ajax "indicator"
+        $('#spinner-wrapper').removeClass('active');
+      });
+      
+      return this;
+      
+    }; // $.fn.masonryImagesReveal()
 
-  <!-- Init scripts -->
-  <script>
-    $(document).ready(function() {
+    /**
+     * Gets content from another page. 
+     * @param  integer pagenumber The page number to get. 
+     * @return string             Returns false if the requested page, does not have content. Otherwise returns the HTML.
+     */
+    function appendPageContent(pagenumber) {
 
-      {block:IfShowExtraContentFromSubsequentPages}
-      if (pageID) {
-        var increment = 3;
-        for (i=1; i <= parseInt(increment)-1; i++) {
-          if (i + parseInt(pageID) <= {TotalPages}) {
-            appendContentFromPage(parseInt(pageID) + i);
+      pagenumber++;
+
+      $.ajax({
+        url: '/page/' + pagenumber,
+        dataType: 'html', // defaults to 'intelegent guess' http://api.jquery.com/jquery.ajax/
+        beforeSend: function() {
+          $('#spinner-wrapper').addClass('active');
+          // console.log('Getting page content from page #: ' + pagenumber);
+        },
+        success: function(data) {
+
+          if ($(data).find('.post').length > 0) {
+            $grid.masonryImagesReveal($(data).find('.post'));
+          } else {
+            $('#spinner-wrapper').removeClass('active');
+            endOfBlog = true;
           }
-        }
-        if ((parseInt({CurrentPage}) + increment) < parseInt({TotalPages})) {
-          $('a.next.prevnext-links').attr('href', '/page/' + String(parseInt({CurrentPage}) + increment));
-        }
-        if ((parseInt({CurrentPage}) - increment) >= 1) {
-          $('a.prev.prevnext-links').attr('href', '/page/' + String(parseInt({CurrentPage}) - increment));
-        }
-      }
-      {/block:IfShowExtraContentFromSubsequentPages}
 
-    }); // doc ready
+        }, // success
+        error: function() {
+          console.log('Something went wrong with AJAX, bro.');
+          return false;
+        }
+      });
+
+    } // getPageContent()
 
     window.onload = function() {
+
+      // FitVids
       $('.post').fitVids({customSelector: "iframe[src^='https://w.soundcloud.com'], iframe[src^='https://soundcloud.com'], iframe[src^='http://embed.spotify.com']"});
-    }; // winodw loaded
+
+    }; // window loaded
+
   </script>
 
 </body></html>
