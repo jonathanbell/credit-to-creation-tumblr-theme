@@ -200,7 +200,7 @@
     { max-width: 900px; }
     .post.photo img { width: 100%; display: block; height: auto; }
     {block:IfShowReblogAndLikeButtonsAboveThumbnailsWhenHovering}
-      .front .post.photo .reblog-and-like-buttons { display: none; opacity: 0; position: relative; list-style: none; padding: 0; left: 11px; }
+      .front .post.photo .reblog-and-like-buttons { display: none; opacity: 0; position: relative; list-style: none; padding: 0; left: 11px; z-index: 99; }
       .front .post.photo:hover > .reblog-and-like-buttons { opacity: 1; }
     {/block:IfShowReblogAndLikeButtonsAboveThumbnailsWhenHovering}
     {block:IfDisplayAllPhotoPostsInBlackAndWhite}
