@@ -152,18 +152,18 @@
     .main-header { display: flex; flex-direction: column-reverse; }
     .main-heading-wrapper { flex: 1; padding: 0 0.5rem; }
     .main-heading { margin: 0; }
-    .main-heading a { text-decoration: none; color: {color:Main heading}; } 
+    .main-heading a { text-decoration: none; color: {color:Main heading}; }
     .main-heading a:hover { color: {color:Main heading}; }
     .description { font-weight: normal; margin: 0; }
 
     {block:IfHeaderImage}{block:ShowHeaderImage}
       .not-front .main-header { background: transparent; }
-      .front .main-header { 
+      .front .main-header {
         background: url('{image:Header}') no-repeat center center; height: auto; width: 100%; padding: 1rem;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
-        background-size: cover; 
+        background-size: cover;
       }
     {/block:ShowHeaderImage}{/block:IfHeaderImage}
 
@@ -172,7 +172,7 @@
     ul.pages li, .tag { display: inline; color: {color:Heading text}; padding-left: 3px; font-style: italic; text-transform: lowercase; }
     ul.pages li:first-of-type, .tag:first-of-type { padding-left: 0; }
 
-    .front #main { 
+    .front #main {
       margin: 0.5rem auto;
       {block:IfShowHorizontalLineUnderMainHeader}padding-top: 1rem; border-top: 1px solid {color:Heading text};{/block:IfShowHorizontalLineUnderMainHeader}
     }
@@ -185,7 +185,7 @@
     /* inital (base) width of cols */
     .front .post, .front .grid-sizer { width: 70%; }
     .js .front .post, .js .front .grid-sizer { width: 100%; }
-    .front .post { padding: 0.5rem; } 
+    .front .post { padding: 0.5rem; }
     .not-front .post { margin-top: 1rem; }
     .post h1, .post h2, .post h3, .post h4, .post h5, .post h6 { margin-top: 0; }
     .post img { max-width: 100%; }
@@ -284,7 +284,7 @@
 
     @media screen and (min-width: 64rem) {
 
-      .js .front .post, .js .front .grid-sizer { width: 33.19%; } /* Masonry.js */ 
+      .js .front .post, .js .front .grid-sizer { width: 33.19%; } /* Masonry.js */
 
     } /* min width 64rem */
 
@@ -337,7 +337,7 @@
   {block:IfInfiniteScrolling}
   {block:IfShowLoadingIndicator}
   <!-- ajax display (toggles on and off with JS) -->
-  <div id="spinner-wrapper"><img src="http://static.tumblr.com/uoxxoej/eRToa0f46/spinner.gif" /></div>
+  <div id="spinner-wrapper"><img src="https://static.tumblr.com/uoxxoej/eRToa0f46/spinner.gif" /></div>
   {/block:IfShowLoadingIndicator}
   {/block:IfInfiniteScrolling}
 
@@ -482,7 +482,7 @@
             })();
           </script>
           <!-- This <a> tag comes with the "recommended" Disqus embed code. We just hide it via CSS. -->
-          <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+          <a href="https://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
         {/block:IfDisqusShortname}
       {/block:PermalinkPage}
       <!-- /Permalink Page -->
@@ -506,15 +506,15 @@
   {/block:IfNotInfiniteScrolling}
 
   <!-- jQuery -->
-  <script src="http://static.tumblr.com/uoxxoej/PQLoa0ecw/2.1.3.jquery.min.js"></script>
+  <script src="https://static.tumblr.com/uoxxoej/PQLoa0ecw/2.1.3.jquery.min.js"></script>
   <!-- Responsive videos via FitVids -->
-  <script src="http://static.tumblr.com/uoxxoej/xTOm605fx/jquery.fitvids.js"></script>
+  <script src="https://static.tumblr.com/uoxxoej/xTOm605fx/jquery.fitvids.js"></script>
   <!-- Masonary -->
-  <script src="http://static.tumblr.com/uoxxoej/BfBo9vkfb/masonry.pkgd.min.js"></script>
+  <script src="https://static.tumblr.com/uoxxoej/BfBo9vkfb/masonry.pkgd.min.js"></script>
   <!-- imagesLoaded -->
-  <script src="http://static.tumblr.com/uoxxoej/cCGo9vkhi/imagesloaded.pkgd.min.js"></script>
+  <script src="https://static.tumblr.com/uoxxoej/cCGo9vkhi/imagesloaded.pkgd.min.js"></script>
   <!-- smartScroll -->
-  <script src="http://static.tumblr.com/uoxxoej/0Mpoa0eul/jquery.smartscroll.js"></script>
+  <script src="https://static.tumblr.com/uoxxoej/0Mpoa0eul/jquery.smartscroll.js"></script>
 
   <!-- Google Analytics -->
   {block:IfGoogleAnalyticsID}
@@ -537,7 +537,7 @@
     * and set a var to hold the current page and pagination position.
     * NOTE: Tumblr's own CurrentPage and TotalPages could do this except
     * CurrentPage will still return '1' even if we are on a permalink or tags
-    * page. 
+    * page.
     */
     var URLparser = document.createElement('a');
     var pageID; // the page position
@@ -560,7 +560,7 @@
 
     var endOfBlog = false;
 
-    var $grid; 
+    var $grid;
     $(function() {
 
       // initalize Masonry.js
@@ -573,19 +573,19 @@
       // event handler to call the content append
       $(window).smartscroll(function() {
         if($(window).scrollTop() + $(window).height() > $(document).height() - 170 && endOfBlog === false && pageID != false) {
-          // for (i=0; i < 2; i++) { // this seems to be too spicy. 
+          // for (i=0; i < 2; i++) { // this seems to be too spicy.
             appendPageContent(pageID);
             pageID++;
           // }
         }
       });
       {/block:IfInfiniteScrolling}
-      
+
     }); // enclosure
 
     // extend jQuery object to layout the posts with Masonry.js once the images have loaded
     $.fn.masonryImagesReveal = function($items) {
-      
+
       var msnry = this.data('masonry');
       var itemSelector = msnry.options.itemSelector;
       // hide by default
@@ -603,14 +603,14 @@
         // remove the ajax "indicator"
         $('#spinner-wrapper').removeClass('active');
       });
-      
+
       return this;
-      
+
     }; // $.fn.masonryImagesReveal()
 
     /**
-     * Gets content from another page. 
-     * @param  integer pagenumber The page number to get. 
+     * Gets content from another page.
+     * @param  integer pagenumber The page number to get.
      * @return string             Returns false if the requested page, does not have content. Otherwise returns the HTML.
      */
     function appendPageContent(pagenumber) {
@@ -645,7 +645,7 @@
     window.onload = function() {
 
       // FitVids
-      $('.post').fitVids({customSelector: "iframe[src^='https://w.soundcloud.com'], iframe[src^='https://soundcloud.com'], iframe[src^='http://embed.spotify.com']"});
+      $('.post').fitVids({customSelector: "iframe[src^='https://w.soundcloud.com'], iframe[src^='https://soundcloud.com'], iframe[src^='https://embed.spotify.com']"});
 
     }; // window loaded
 
